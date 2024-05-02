@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="LOG_PATTERN">
+            %d{yyyy-MM-dd HH:mm:ss.SSS} %p %c{1}: %m%n
+        </Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="RollingName" fileName="logs/hippodrome.log"
+                     filePattern="logs/hippodrome.%d{yyyy-MM-dd}.log">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <TimeBasedTriggeringPolicy/>
+            <DefaultRolloverStrategy>
+                <Delete basePath="logs" maxDepth="1">
+                    <IfFileName glob="hippodrome.*.log"/>
+                    <IfLastModified age="7d"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="RollingName"/>
+        </Root>
+    </Loggers>
+</Configuration>
